@@ -1,14 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mon projet calculatrice</title>
-        <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <title>Scientific Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-        <h1>Bienvenue sur mon projet calculatrice</h1>
-        <script src="assets/js/app.js"></script>
-        <img src="assets/images/tufted-titmouse-9943582_1280.jpg" width="400px" height="400px" alt="">
+
+<div class="calculator">
+    <input type="text" id="inputBox" placeholder="0" readonly>
+
+   
+    <div>
+        <button class="operator">sin</button>
+        <button class="operator">cos</button>
+        <button class="operator">tan</button>
+        <button class="operator">√</button>
+    </div>
+
+    <div>
+        <button class="operator">x²</button>
+        <button class="operator">π</button>
+        <button class="operator">log</button>
+        <button class="operator">/</button>
+    </div>
+
+    <div>
+        <button class="operator">AC</button>
+        <button class="operator">DEL</button>
+        <button class="operator">%</button>
+        <button class="operator">^</button>
+       
+    </div>
+
+    <div>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+         <button class="operator">*</button>
+    </div>
+
+    <div>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button class="operator">-</button>
+    </div>
+
+    <div>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+       <button class="operator">+</button>
+    </div>
+
+    <div>
+        <button>0</button>
+        <button>00</button>
+        <button>.</button>
+        <button class="equalBtn">=</button>
+    </div>
+</div>
+
+<script src="assets/js/app.js"></script>
 </body>
 </html>
