@@ -11,76 +11,96 @@ function autoResize(){
     else input.style.fontSize = "26px";
 }
 
+function factorial(n) {
+    if (n < 0) return NaN;
+    if (n === 0 || n === 1) return 1;
+    return n * factorial(n - 1);
+}
+
 buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-        let value = btn.innerHTML;
+        let value = btn.innerText;
 
         if (value === "AC") {
             string = "";
-            input.value = "";
-        }
-
+            input.value = "0";
+        } 
         else if (value === "DEL") {
             string = string.slice(0, -1);
-            input.value = string;
-        }
-
+            input.value = string || "0";
+        } 
         else if (value === "=") {
             try {
-                string = eval(string).toString();
+                let exp = string
+                    .replace(/π/g, "Math.PI")
+                    .replace(/e/g, "Math.E")
+                    .replace(/√/g, "Math.sqrt")
+                    .replace(/sin\(/g, "Math.sin(Math.PI/180*")
+                    .replace(/cos\(/g, "Math.cos(Math.PI/180*")
+                    .replace(/tan\(/g, "Math.tan(Math.PI/180*")
+                    .replace(/log\(/g, "Math.log10(")
+                    .replace(/ln\(/g, "Math.log(")
+                    .replace(/(\d+)!/g, "factorial($1)")
+                    .replace(/\^/g, "**");
+
+                string = eval(exp).toString();
                 input.value = string;
             } catch {
                 input.value = "Error";
                 string = "";
             }
-        }
-
-        else if (value === "sin") {
-            string = Math.sin(eval(string) * Math.PI / 180).toString();
+        } 
+        else if (["sin", "cos", "tan", "log", "ln"].includes(value)) {
+            string += value + "(";
             input.value = string;
-        }
-
-        else if (value === "cos") {
-            string = Math.cos(eval(string) * Math.PI / 180).toString();
+        } 
+        else if (value === "e") {
+            if (string && !operators.includes(string.at(-1))) string += "*";
+            string += "e";
             input.value = string;
-        }
-
-        else if (value === "tan") {
-            string = Math.tan(eval(string) * Math.PI / 180).toString();
+        } 
+        else if (value === "%") {
+            string += "/100";
             input.value = string;
-        }
+        }   
+   
 
         else if (value === "√") {
-            string = Math.sqrt(eval(string)).toString();
+            string += "√(";
             input.value = string;
-        }
-
+        } 
         else if (value === "x²") {
-            string = Math.pow(eval(string), 2).toString();
+            string += "^2";
             input.value = string;
-        }
-
+        } 
         else if (value === "π") {
-            string += Math.PI.toFixed(5);
+            if (string && !operators.includes(string.at(-1))) string += "*";
+            string += "π";
             input.value = string;
-        }
-
-        else if (value === "log") {
-            string = Math.log10(eval(string)).toString();
-            input.value = string;
-        }
+        } 
         else if (value === "^") {
-            string += "**";
+            string += "^";
             input.value = string;
-        }
+        } 
+        else if (value === "!") {
+            string += "!";
+            input.value = string;
+        } 
+        else if (value === "(") {
+            string += "(";
+            input.value = string;
+        } 
+        else if (value === ")") {
+            string += ")";
+            input.value = string;
+        } 
         else if (operators.includes(value)) {
-            let last = string[string.length - 1];
-            if (!operators.includes(last)) {
+            let last = string.at(-1);
+            if (string && !operators.includes(last)) {
                 string += value;
                 input.value = string;
             }
-        }
-
+        } 
         else {
             string += value;
             input.value = string;
