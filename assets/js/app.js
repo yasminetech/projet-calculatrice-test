@@ -3,6 +3,7 @@ let buttons = document.querySelectorAll("button");
 
 let string = "";
 let operators = ["+", "-", "*", "/", "%"];
+let lastAnswerTable = [];
 
 function autoResize(){
     let len = input.value.length;
@@ -11,7 +12,7 @@ function autoResize(){
     else input.style.fontSize = "26px";
 }
 
-function factorial(n) {
+function factorial(n) { 
     if (n < 0) return NaN;
     if (n === 0 || n === 1) return 1;
     return n * factorial(n - 1);
@@ -30,7 +31,10 @@ buttons.forEach(btn => {
             input.value = string || "0";
         } 
         else if (value === "=") {
+
             try {
+
+
                 let exp = string
                     .replace(/π/g, "Math.PI")
                     .replace(/e/g, "Math.E")
@@ -43,9 +47,15 @@ buttons.forEach(btn => {
                     .replace(/(\d+)!/g, "factorial($1)")
                     .replace(/\^/g, "**");
 
-                string = eval(exp).toString();
+                let result = eval(exp);
+
+
+                lastAnswer = result.toString(); 
+                lastAnswerTable.push(lastAnswer);
+                string = lastAnswer;
                 input.value = string;
-            } catch {
+
+            } catch (e) {
                 input.value = "Error";
                 string = "";
             }
@@ -63,8 +73,6 @@ buttons.forEach(btn => {
             string += "/100";
             input.value = string;
         }   
-   
-
         else if (value === "√") {
             string += "√(";
             input.value = string;
@@ -101,6 +109,17 @@ buttons.forEach(btn => {
                 input.value = string;
             }
         } 
+        else if (value === "Ans") {
+
+            if (!lastAnswer) return;
+
+            if (string && !operators.includes(string.at(-1))) {
+                string += "*";
+            }
+
+            string += lastAnswer;
+            input.value = lastAnswerTable;
+        }
         else {
             string += value;
             input.value = string;
